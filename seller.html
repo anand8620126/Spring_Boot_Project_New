@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #FFFFFF;
+            color: black;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #537B2F;
+            color: #FFFFFF;
+            padding: 1rem;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .header-image {
+            margin: 20px 0;
+        }
+
+        .header-image img {
+            width: 200px;
+            height: auto;
+        }
+
+        .navigation {
+            margin: 20px 0;
+        }
+
+        .navigation a {
+            color: #A86E58;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0 15px;
+        }
+
+        .navigation a:hover {
+            text-decoration: underline;
+        }
+
+        .orders {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #A86E58;
+        }
+
+        .order {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #FFFFFF;
+            border: 1px solid #A86E58;
+            border-radius: 5px;
+        }
+
+        .order h3 {
+            margin: 0;
+            color: #537B2F;
+        }
+
+        .order p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .order-actions {
+            margin-top: 10px;
+        }
+
+        .order-actions button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+            color: #FFFFFF;
+            background-color: #537B2F;
+        }
+
+        .order-actions button.reject {
+            background-color: #A86E58;
+        }
+
+        .order-actions button:hover {
+            opacity: 0.8;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #A86E58;
+            color: #FFFFFF;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Seller Dashboard</h1>
+</header>
+<div class="header-image">
+    <img src="data:image/png;base64,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
+
+
+
+
+
+            Wdq+9Cr0hjw0NKE3qaWymdC81Z/I7SwisqklyBxghFedEm4cpp6BgQRwoP3xNmqZVlJqroaITIyBMpVQUfCupEwf3UxEko+BilouMdeEXimoZyu2/qjZt9Ed7MSyGm4YyV5pGT5wgeJ9RJOc4WhJsV/A1tzdbel9mRRtTZF2O+uvbUXaQe2iKnvVw57xLGpRVnRsc198WgoW8mjYuVXNM14iGoDXuyIze3hjCnMDRcBGfjPSqP0pCb1N7MfYvk6K6ka5jZeZ5NaKjy7gntWBrRNhwrYBPq6flZKTSluqOdORNv43x730qFELaVRuPasOITHqaZsStWm2BMeOVmeS/uTPdV5K9la0+bSQbhcbco17OuSNpOLfnoFW1ppoRxLb4n9DlhZWPcE2bNhjWS+y+nM/wSqIdz+DbS8DHgt+qFG/+YcP2akFs6J4i2xG3jYEv7FrrjHDO0O/aCnGa9lZd7HUhfUcUx9pEM0zjkC4jD38m3hJq7qJY6p8g700pE3EdXqqNbfI64K+ZGigOtf0ooBlsMN7u9eEiobdeVTpG1YUObkEvz+eA1Qno93QLPd8yRrvMtafEF393014zWTkfx4XgmugRryprj1o6l94SRSShf86HdBB1lh+Mh5bFOc+/lqa8p6XTcxZRPCeO3hHIshvuV4LH0XSvV0YnqSz9QL7nc27Gv1orHo9v6SokW7um4Tl9bxDwRx0e3bR+snCNfD9ouKYXf2xXeW1i3Ykzoq9VAFL8MsR43ooRbkezJNmYV2MXSSzU9FtVjb+YBmm/4govddmu46fMnxQkdjs5ljo9Tsz7iTmr/HDdSKftooHaUPz7+2M36cCfSjgy0PWZSS4evEYEde6R9jcYBR/MJUyKQQorIbuRIX4+dV48/K8Ht2fFep/ni/iYSq/u29j/3T0rb8WMsky/AzvjJ/tmxO1cikpG9B/CElHr2ZdePuvVP36lf+emXiv6b0l7f/DhnAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+P/5C3hyUhif/EyaAAAAAElFTkSuQmCC" alt="Header Image">
+</div>
+<div class="navigation">
+    <a href="/admin.html">Admin Management</a>
+    <a href="/user.html">User Management</a>
+    <a href="/seller.html">Seller Portal</a>
+</div>
+<main>
+    <h2>Manage Orders</h2>
+
+    <div class="orders">
+        <h3>Orders for You</h3>
+        <div id="orders-list">
+            <!-- Orders will be loaded here dynamically -->
+        </div>
+    </div>
+
+    <div class="message" id="message"></div>
+</main>
+
+<script>
+    const sellerId = 1;  // Example seller ID, change as needed
+    const ordersList = document.getElementById('orders-list');
+    const messageDiv = document.getElementById('message');
+
+    // Fetch orders for the seller
+    function fetchOrders() {
+        fetch(`/seller/orders/${1}`)
+            .then(response => response.json())
+            .then(data => {
+                displayOrders(data);
+            })
+            .catch(error => {
+                showMessage('Error fetching orders.', 'error');
+            });
+    }
+
+    // Display orders in the DOM
+    function displayOrders(orders) {
+        if (orders.length === 0) {
+            ordersList.innerHTML = '<p>No orders available.</p>';
+            return;
+        }
+
+        ordersList.innerHTML = '';  // Clear any existing orders
+        orders.forEach(order => {
+            const orderDiv = document.createElement('div');
+            orderDiv.classList.add('order');
+            orderDiv.innerHTML = `
+                <h3>Order #${order.id}</h3>
+                <p><strong>Customer:</strong> ${order.customerName}</p>
+                <p><strong>Status:</strong> ${order.status}</p>
+                <div class="order-actions">
+                    <button class="accept" onclick="acceptOrder(${order.id})">Accept</button>
+                    <button class="reject" onclick="rejectOrder(${order.id})">Reject</button>
+                </div>
+            `;
+            ordersList.appendChild(orderDiv);
+        });
+    }
+
+    // Accept order
+    function acceptOrder(orderId) {
+        fetch(`/seller/accept/${orderId}`, {
+            method: 'POST'
+        })
+        .then(response => response.text())
+        .then(message => {
+            showMessage(message, 'success');
+            fetchOrders();  // Refresh the list of orders
+        })
+        .catch(error => {
+            showMessage('Error accepting the order.', 'error');
+        });
+    }
+
+    // Reject order
+    function rejectOrder(orderId) {
+        const reason = prompt('Enter a reason for rejection:');
+        if (!reason) return;
+
+        fetch(`/seller/reject/${orderId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(reason)
+        })
+        .then(response => response.text())
+        .then(message => {
+            showMessage(message, 'success');
+            fetchOrders();  // Refresh the list of orders
+        })
+        .catch(error => {
+            showMessage('Error rejecting the order.', 'error');
+        });
+    }
+
+    // Display success or error message
+    function showMessage(message, type) {
+        messageDiv.innerText = message;
+        messageDiv.style.display = 'block';
+        messageDiv.style.backgroundColor = type === 'success' ? '#537B2F' : '#A86E58';
+    }
+
+    // Initialize by fetching orders
+    fetchOrders();
+</script>
+
+</body>
+</html>

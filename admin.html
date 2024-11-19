@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Management</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #FFFFFF;
+            color: black;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #537B2F;
+            color: #FFFFFF;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .admin-table th, .admin-table td {
+            border: 1px solid #537B2F;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .admin-table th {
+            background-color: #537B2F;
+            color: #FFFFFF;
+        }
+
+        .admin-table tr:nth-child(even) {
+            background-color: #F7F7F7;
+        }
+
+        button {
+            background-color: #537B2F;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #A86E58;
+        }
+
+        .form-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-container input {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            border: 1px solid #537B2F;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Admin Management</h1>
+</header>
+<div class="container">
+    <table class="admin-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="admin-list">
+        <!-- Dynamic rows will be added here by JavaScript -->
+        </tbody>
+    </table>
+
+    <div class="form-container">
+        <input type="text" id="admin-name" placeholder="Admin Name">
+        <input type="email" id="admin-email" placeholder="Admin Email">
+        <button onclick="addAdmin()">Add Admin</button>
+    </div>
+</div>
+<script>
+    const admins = [
+
+        { id: 1, name: "Admin User", email: "admin@example.com" },
+        { id: 2, name: "Sachdeva Homoeos", email: "superadmin@example.com" }
+
+    ];
+
+    function renderAdminList() {
+        const adminList = document.getElementById('admin-list');
+        adminList.innerHTML = admins.map(admin => `
+            <tr>
+                <td>${admin.id}</td>
+                <td>${admin.name}</td>
+                <td>${admin.email}</td>
+                <td>
+                    <button onclick="deleteAdmin(${admin.id})">Delete</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function addAdmin() {
+        const name = document.getElementById('admin-name').value;
+        const email = document.getElementById('admin-email').value;
+        if (name && email) {
+            admins.push({ id: admins.length + 1, name, email });
+            renderAdminList();
+            document.getElementById('admin-name').value = '';
+            document.getElementById('admin-email').value = '';
+        } else {
+            alert('Please fill in all fields');
+        }
+    }
+
+    function deleteAdmin(id) {
+        const index = admins.findIndex(admin => admin.id === id);
+        if (index !== -1) {
+            admins.splice(index, 1);
+            renderAdminList();
+        }
+    }
+
+    // Render initial list
+    renderAdminList();
+</script>
+</body>
+</html>
